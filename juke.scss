@@ -1,0 +1,82 @@
+
+
+* {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	background-color: #1F305E;
+	i {
+		padding: 13px;
+		color: #009ef9;
+		text-align: center;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	input {
+		color: white;
+	}
+	p {
+		color: white;
+	}
+
+	button {
+		padding: 0px;
+		border: none;
+		background: none;
+		outline: none;
+    }
+}
+
+header {
+    text-align: center;
+	margin-bottom:15px;
+	
+    h1 {
+        color:white !important;
+    }
+}
+
+#container {
+	width: 600px;
+	margin: 0 auto;
+
+	.items {
+		border: 1px solid #6CB4EE;
+		padding: 20px;
+		margin-bottom: 15px;
+		cursor: pointer;
+		color: white;
+	}
+}
+
+#control {
+	background: white;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+
+	.icons {
+		text-align: center;
+		max-width: 600px;
+		margin: 0 auto;
+
+		.flex {
+			display: flex;
+			justify-content: space-evenly;
+			#seekBar {
+				width: 50%;
+			}
+			#playButt {
+				display: none;
+			}
+			#pauseButt {
+				display: inline-block;
+			}
+		}
+	}
+}
+

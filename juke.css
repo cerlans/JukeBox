@@ -1,0 +1,91 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #1F305E;
+}
+
+body i {
+  padding: 13px;
+  color: #009ef9;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+body input {
+  color: white;
+}
+
+body p {
+  color: white;
+}
+
+body button {
+  padding: 0px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+header h1 {
+  color: white !important;
+}
+
+#container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+#container .items {
+  border: 1px solid #6CB4EE;
+  padding: 20px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  color: white;
+}
+
+#control {
+  background: white;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+#control .icons {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#control .icons .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+#control .icons .flex #seekBar {
+  width: 50%;
+}
+
+#control .icons .flex #playButt {
+  display: none;
+}
+
+#control .icons .flex #pauseButt {
+  display: inline-block;
+}
+/*# sourceMappingURL=juke.css.map */

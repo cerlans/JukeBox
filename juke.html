@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Page Title</title>
+      <link rel="stylesheet" href="juke.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+   </head>
+   <body>
+      <header>
+         <h1><i class="fas fa-compact-disc" ></i> Juke-Box</h1>
+         <p> You can play a song from the list below, or upload your own</p>
+         <br>
+         <input type = 'file' id='check'>
+      </header>
+      <div id="container">
+         <div class="items">
+            <p>SoundHelix-Song-1</p>
+            <audio src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+         </div>
+         <div class="items">
+            <p>SoundHelix-Song-2</p>
+            <audio src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+         </div>
+         <div class="items">
+            <p>SoundHelix-Song-3</p>
+            <audio src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
+         </div>
+      </div>
+      <div id = 'control'>
+         <div class ='icons'>
+            <div class='flex'>
+               <div>
+                  <i class="fas fa-random" id="random"></i>
+               </div>
+               <div>
+                  <button>
+                  <i class="fas fa-step-backward"></i>
+                  </button>
+                  <button id="pauseButt">
+                  <i class="fas fa-pause"></i>
+                  </button>
+                  <button id="playButt">
+                  <i class="fas fa-play"></i>
+                  </button>
+                  <button>
+                  <i class="fas fa-step-forward"></i>
+                  </button>
+               </div>
+               <div>
+                  <i class="fas fa-volume-up"></i>
+               </div>
+            </div>
+            <span id="current">0:00</span>
+            <input type="range" id="seekBar" value="0">
+            <span id="duration">0:00</span>
+         </div>
+      </div>
+      <script src="juke.js"></script>
+   </body>
+</html>
+
