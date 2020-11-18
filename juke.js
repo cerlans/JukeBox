@@ -1,5 +1,6 @@
-//#1F305E
 //global variables
+
+// a LIVE html collection off the div's with the class of 'items'
 var divs = document.getElementsByClassName('items');
 
 // the current time off the audio
@@ -8,17 +9,17 @@ var currentTime = document.getElementById('current');
 //the duration off the song
 var duration = document.getElementById('duration')
 
+// input type range bar, changes its state to the current audio playing
 var seeking = document.getElementById('seekBar');
-seeking.addEventListener('click', function() {
-    console.log(this)
-})
 
+// the shuffle icon
 var shuffleButton = document.getElementById('random')
 
-
+//file reader-upload button
 var inputUpload = document.getElementById("check");
 inputUpload.addEventListener('change', fileRead);
 
+let songTitle = document.getElementById('currentSongName')
 
 
 //creates a file reader that processes the file given to it by the user
@@ -51,36 +52,23 @@ function fileRead() {
 }
 
 
-function timeFormat(duration)
-
-{
-    // Hours, minutes and seconds
-    var hrs = ~~(duration / 3600);
-    var mins = ~~((duration % 3600) / 60);
-    var secs = ~~duration % 60;
-
-    // Output like "1:01" or "4:03:59" or "123:03:59"
-    var ret = "";
-
-    if (hrs > 0) {
-        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-    }
-
-    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-    ret += "" + secs;
-    return ret;
-}
-
 //for grabbing the closest audio selected
 var container = document.getElementById('container');
+
 // variable for song currently selected
 let song
+
 //processes,plays, and also adds timetracking to currentSong selected
 function songSelect(e) {
-    let node = e.target.closest(".items");
+    let node = e.target.closest(".items"); //grabs closest div with the .items class
 
     if (node) {
-        song = node.querySelector("div>audio");
+        song = node.querySelector("div>audio"); //
+
+        let songName = node.querySelector('div>p') //grabs the closest p tag within the same div as the audio
+        
+        songTitle.innerText = songName.innerText 
+
         song.play()
         duration.innerHTML = timeFormat(song.duration)
         song.addEventListener('timeupdate', seekBarstatus)
@@ -91,6 +79,7 @@ function songSelect(e) {
         }
     }
 }
+
 
 // for controlling the play button only
 //since the song already plays in the songSelect() function, this is only in charge of the mouse clicks on the play icon
@@ -112,7 +101,17 @@ function pause() {
         document.getElementById('playButt').style.display = ' inline-block';
     }
 }
-
+//returns a live collection of div's container '.items' class
+let activeIndex = 0;
+  //numbered variable for shifting through the song index
+function currentActiveIndex(){
+    [...divs].forEach(function(el, index) {
+              if (el.classList.contains('item--active')) {
+                  return activeIndex = index
+              }
+          })
+          return activeIndex;
+}
 // updates the time, off each song, with timeupdate event
 //sets the current time to the spans next to seekbar
 //adjust the seekbar dial to the current time, and duration off the song
@@ -137,6 +136,28 @@ function domShuffle() {
     }
     parent.appendChild(frag);
 }
+
+// time formatter that outputs the given song duration into hours, mins, and seconds
+function timeFormat(duration)
+
+{
+    // Hours, minutes and seconds
+    var hrs = ~~(duration / 3600);
+    var mins = ~~((duration % 3600) / 60);
+    var secs = ~~duration % 60;
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+}
+
 
 //event listeners + functions
 let playButton = document.getElementById('playButt');
@@ -165,5 +186,33 @@ seeking.addEventListener('change', function() {
 })
 
 shuffleButton.addEventListener('click', domShuffle)
+// the const variables below control the previous and next buttons in the controls
+// it shifts through the songs while adding a visual highlight into the current position it is in
+// we are shifting the the global 'divs' variable which is an html collection of div's that contain the audio name, and file
 
+const next = document.getElementById('next')
+next.addEventListener('click', function() {
+    currentActiveIndex();
+    // the above function runs, and does everything that was described above before moving along. the first element off the list contains the class 'item active'
+    console.log(activeIndex)
+    divs[activeIndex].classList.remove('item--active');
+    // and since the first item will always contain the item active class, it will always start from zero, remove that class from the zero'th list item
+    if ((activeIndex + 1) <= divs.length) {
+        divs[activeIndex + 1].classList.add('item--active'); 
+    } else {
+        divs[divs.length].classList.add('item--active'); 
+    }
+})
+
+const previous = document.getElementById('previous')
+previous.addEventListener('click', function(){
+    currentActiveIndex();
+    console.log(activeIndex)
+    divs[activeIndex].classList.remove('item--active');
+    if ((activeIndex - 1) >= 0) {
+        divs[activeIndex - 1].classList.add('item--active'); 
+    } else {
+        divs[0].classList.add('item--active');
+    }
+})
 console.log(playButton);
