@@ -80,3 +80,27 @@ header {
 	}
 }
 
+@media (min-width:320px) {
+	* {
+		padding: 0px;
+		margin: 0px;
+		box-sizing: border-box;
+		font-family: 'Poppins', sans-serif;
+	}
+
+	header {
+		padding:20px;
+		input {
+			width:100%;
+			
+		}
+	}
+	#container {
+		padding:15px;
+		width:100%;
+		.items {
+			width:100%;
+		}
+	}
+}
+
