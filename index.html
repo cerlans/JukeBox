@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 <html>
    <head>
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+      <meta content="utf-8" http-equiv="encoding">
       <title>JukeBox</title>
-      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="juke.css">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -50,20 +51,17 @@
                   </button>
                </div>
                <div>
-                  <i class="fas fa-volume-up"></i>
+                  <i class="fas fa-volume-up" id="volume"></i>
+                  <i class="fas fa-volume-off" id ='volume-off'style="display:none"></i>
                </div>
             </div>
             <span id="current">0:00</span>
             <input type="range" id="seekBar" value="0">
-            <!-- isn't responsive in mobile-->
             <span id="duration">0:00</span>
             <p id="currentSongName"></p>
          </div>
       </div>
-      <script src="index.js"></script>
+      <script src="juke.js"></script>
    </body>
 </html>
 
-<!--
-   add error functionality to disallow anything other than audio files to be uploaded
--->
