@@ -53,6 +53,9 @@
     width: 600px;
     margin: 0 auto;
   }
+  #container p {
+ pointer-events: none;
+}
   
   #container .items {
     border: 1px solid #6CB4EE;
