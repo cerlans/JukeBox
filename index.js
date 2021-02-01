@@ -72,7 +72,10 @@ function songSelect(e) {
         songTitle.innerText = songName.innerText 
 
         song.play()
+        duration.innerHTML = timeFormat(song.duration)
         song.addEventListener('timeupdate', seekBarStatus)
+
+
 
         //resets the icons to default state if song is changed while another song is currently playing
         if (song.play) {
@@ -119,10 +122,6 @@ function currentActiveIndex(){
           })
           return activeIndex;
 }
-
-
-
-
 // updates the time, off each song, with timeupdate event
 //sets the current time to the spans next to seekbar
 //adjust the seekbar dial to the current time, and duration off the song
@@ -131,7 +130,6 @@ function seekBarStatus() {
     currentTime.innerHTML = timeFormat(song.currentTime);
     seekBar.max = song.duration
     seekBar.value = song.currentTime;
-    duration.innerHTML = timeFormat(song.duration);
 
     if(song.currentTime === song.duration) {
         pause();
@@ -209,8 +207,7 @@ shuffleButton.addEventListener('click', domShuffle)
 // we are shifting the the global 'divs' variable which is an html collection of div's that contain the audio name, and file
 
 const next = document.getElementById('next')
-next.addEventListener('click', function(event) {
-   
+next.addEventListener('click', function() {
     currentActiveIndex();
     // the above function runs, and does everything that was described above before moving along. the first element off the list contains the class 'item active'
     console.log(this)
@@ -219,10 +216,9 @@ next.addEventListener('click', function(event) {
     if ((activeIndex + 1) <= divs.length) {
         divs[activeIndex + 1].classList.add('item--active');
         ++activeIndex
-        song = divs[activeIndex].children[1];
-        songTitle.innerHTML = divs[activeIndex].children[0].innerHTML
-        song.play()
-        song.addEventListener('timeupdate', seekBarStatus)
+        divs[activeIndex].children[1].play()
+        let song = divs[activeIndex].children[1];
+        console.log(song)
        
     } else {
         divs[divs.length].classList.add('item--active'); 
@@ -237,10 +233,7 @@ previous.addEventListener('click', function(){
     if ((activeIndex - 1) >= 0) {
         divs[activeIndex - 1].classList.add('item--active');
         --activeIndex
-        song = divs[activeIndex].children[1];
-        songTitle.innerHTML = divs[activeIndex].children[0].innerHTML
-        song.play()
-        song.addEventListener('timeupdate', seekBarStatus)
+        divs[activeIndex].children[1].play()
     } else {
         divs[0].classList.add('item--active');
     }
