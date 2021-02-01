@@ -2,22 +2,22 @@
 //global variables
 
 // a LIVE html collection off the div's with the class of 'items'
-var divs = document.getElementsByClassName('items');
+const divs = document.getElementsByClassName('items');
 
 // the current time off the audio
 var currentTime = document.getElementById('current');
 
 //the duration off the song
-var duration = document.getElementById('duration')
+const duration = document.getElementById('duration')
 
 // input type range bar, changes its state to the current audio playing
 var seeking = document.getElementById('seekBar');
 
 // the shuffle icon
-var shuffleButton = document.getElementById('random')
+const shuffleButton = document.getElementById('random')
 
 //file reader-upload button
-var inputUpload = document.getElementById("check");
+const inputUpload = document.getElementById("check");
 inputUpload.addEventListener('change', fileRead);
 
 let songTitle = document.getElementById('currentSongName')
@@ -29,13 +29,12 @@ function fileRead() {
     const reader = new FileReader()
     reader.onload = function() {
         var result = reader.result;
-        //result is asynchronous, but it seems to finish processing
-        // by this line
+   
         rest(result)
     }
 
     function rest(param) {
-        var audioPlayer = new Audio(param);
+        let audioPlayer = new Audio(param);
         child.appendChild(audioPlayer);
         console.log(audioPlayer);
     }
@@ -54,7 +53,7 @@ function fileRead() {
 
 
 //for grabbing the closest audio selected
-var container = document.getElementById('container');
+const container = document.getElementById('container');
 
 // variable for song currently selected
 let song
@@ -157,12 +156,12 @@ function timeFormat(duration)
 
 {
     // Hours, minutes and seconds
-    var hrs = ~~(duration / 3600);
-    var mins = ~~((duration % 3600) / 60);
-    var secs = ~~duration % 60;
+    let hrs = ~~(duration / 3600);
+    let mins = ~~((duration % 3600) / 60);
+    let secs = ~~duration % 60;
 
     // Output like "1:01" or "4:03:59" or "123:03:59"
-    var ret = "";
+    let ret = "";
 
     if (hrs > 0) {
         ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
@@ -184,9 +183,9 @@ pauseButton.addEventListener('click', pause);
 //pauses every othersong besides the song currently playing
 //resets the time off every other song that isn't selected
 document.addEventListener('play', function(e) {
-    var audios = document.getElementsByTagName('audio');
+    let audios = document.getElementsByTagName('audio');
     //retrieves all the audio tags, in my context thats 3
-    for (var i = 0, len = audios.length; i < len; i++) {
+    for (let i = 0, len = audios.length; i < len; i++) {
         //standard for loop 
         if (audios[i] != e.target) {
             audios[i].pause();
@@ -252,7 +251,7 @@ container.addEventListener('click', function(event) {
     }
 
     // removes the class from other elements if it isn't the target
-    for (var i = 0, len = divs.length; i < len; i++) {
+    for (let i = 0, len = divs.length; i < len; i++) {
        
         if (divs[i] != event.target) {
             divs[i].classList.remove('item--active');
