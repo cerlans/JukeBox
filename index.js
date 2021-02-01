@@ -1,17 +1,18 @@
 
+
 //global variables
 
 // a LIVE html collection off the div's with the class of 'items'
-const divs = document.getElementsByClassName('items');
+let divs = document.getElementsByClassName('items');
 
 // the current time off the audio
-var currentTime = document.getElementById('current');
+let currentTime = document.getElementById('current');
 
 //the duration off the song
 const duration = document.getElementById('duration')
 
 // input type range bar, changes its state to the current audio playing
-var seeking = document.getElementById('seekBar');
+let seeking = document.getElementById('seekBar');
 
 // the shuffle icon
 const shuffleButton = document.getElementById('random')
@@ -20,7 +21,7 @@ const shuffleButton = document.getElementById('random')
 const inputUpload = document.getElementById("check");
 inputUpload.addEventListener('change', fileRead);
 
-let songTitle = document.getElementById('currentSongName')
+const songTitle = document.getElementById('currentSongName')
 
 
 //creates a file reader that processes the file given to it by the user
@@ -28,8 +29,9 @@ let songTitle = document.getElementById('currentSongName')
 function fileRead() {
     const reader = new FileReader()
     reader.onload = function() {
-        var result = reader.result;
-   
+        let result = reader.result;
+        //result is asynchronous, but it seems to finish processing
+        // by this line
         rest(result)
     }
 
@@ -55,7 +57,7 @@ function fileRead() {
 //for grabbing the closest audio selected
 const container = document.getElementById('container');
 
-// variable for song currently selected
+//  global variable for song currently selected through mouse clicks
 let song
 
 //processes,plays, and also adds timetracking to currentSong selected
@@ -114,7 +116,6 @@ function currentActiveIndex(){
     [...divs].forEach(function(el, index) {
        
               if (el.classList.contains('item--active')) {
-                     console.log(el)
                   return activeIndex = index
                   
               }
@@ -142,9 +143,10 @@ function seekBarStatus() {
 //shuffles the content off the divs containing songs
 function domShuffle() {
     
-    var parent = document.getElementById("container");
-    var divs = parent.children;
-    var frag = document.createDocumentFragment();
+    let parent = document.getElementById("container");
+    let divs = parent.children;
+    let frag = document.createDocumentFragment();
+
     while (divs.length) {
         frag.appendChild(divs[Math.floor(Math.random() * divs.length)]);
     }
@@ -183,7 +185,7 @@ pauseButton.addEventListener('click', pause);
 //pauses every othersong besides the song currently playing
 //resets the time off every other song that isn't selected
 document.addEventListener('play', function(e) {
-    let audios = document.getElementsByTagName('audio');
+    const audios = document.getElementsByTagName('audio');
     //retrieves all the audio tags, in my context thats 3
     for (let i = 0, len = audios.length; i < len; i++) {
         //standard for loop 
@@ -209,7 +211,6 @@ const next = document.getElementById('next')
 next.addEventListener('click', function() {
     currentActiveIndex();
     // the above function runs, and does everything that was described above before moving along. the first element off the list contains the class 'item active'
-    console.log(this)
     divs[activeIndex].classList.remove('item--active');
     // and since the first item will always contain the item active class, it will always start from zero, remove that class from the zero'th list item
     if ((activeIndex + 1) <= divs.length) {
@@ -217,8 +218,14 @@ next.addEventListener('click', function() {
         ++activeIndex
         divs[activeIndex].children[1].play()
         let song = divs[activeIndex].children[1];
-        console.log(song)
-       
+        songTitle.innerText = song.parentElement.innerText;
+        duration.innerHTML = timeFormat(song.duration)
+        song.addEventListener('timeupdate', () => {
+           seekBar.max = song.duration
+           seekBar.value = song.currentTime
+           current.innerText = timeFormat(song.currentTime);
+        })
+       console.log(song.paused)
     } else {
         divs[divs.length].classList.add('item--active'); 
     }
@@ -232,7 +239,16 @@ previous.addEventListener('click', function(){
     if ((activeIndex - 1) >= 0) {
         divs[activeIndex - 1].classList.add('item--active');
         --activeIndex
-        divs[activeIndex].children[1].play()
+        divs[activeIndex].children[1].play();
+        let song = divs[activeIndex].children[1];
+        songTitle.innerText = song.parentElement.innerText;
+        duration.innerHTML = timeFormat(song.duration)
+        song.addEventListener('timeupdate', function(){
+           seekBar.max = song.duration
+           seekBar.value = song.currentTime
+           current.innerText = timeFormat(song.currentTime);
+        })
+
     } else {
         divs[0].classList.add('item--active');
     }
@@ -244,7 +260,6 @@ container.addEventListener('click', function(event) {
     //can a switch statement be used here instead?
     if (event.target.className === 'items') {
         event.target.classList.add('item--active');
-        console.log(this)
         //functional, just the padding around the elements is small so i have to click a certain area
         // how to make anything that was clicked the clickable area?
         // add another line that removes any instances off the class when the event target is clicked
@@ -258,4 +273,5 @@ container.addEventListener('click', function(event) {
                 }
     }
 })
-console.log(playButton);
+
+
