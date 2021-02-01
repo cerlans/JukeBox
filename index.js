@@ -58,7 +58,7 @@ function fileRead() {
 const container = document.getElementById('container');
 
 //  global variable for song currently selected through mouse clicks
-let song
+let song;
 
 //processes,plays, and also adds timetracking to currentSong selected
 function songSelect(e) {
@@ -90,7 +90,6 @@ function songSelect(e) {
 
 // for controlling the play button only
 //since the song already plays in the songSelect() function, this is only in charge of the mouse clicks on the play icon
-// is this efficient? almost all off the control for the song, is dependent on the songSelect function
 function play() {
     song.play()
     if (song.play) {
@@ -216,16 +215,11 @@ next.addEventListener('click', function() {
     if ((activeIndex + 1) <= divs.length) {
         divs[activeIndex + 1].classList.add('item--active');
         ++activeIndex
-        divs[activeIndex].children[1].play()
-        let song = divs[activeIndex].children[1];
+        song = divs[activeIndex].children[1];
+        song.play()
         songTitle.innerText = song.parentElement.innerText;
-        duration.innerHTML = timeFormat(song.duration)
-        song.addEventListener('timeupdate', () => {
-           seekBar.max = song.duration
-           seekBar.value = song.currentTime
-           current.innerText = timeFormat(song.currentTime);
-        })
-       console.log(song.paused)
+        duration.innerText = timeFormat(song.duration);
+        song.addEventListener('timeupdate', seekBarStatus)
     } else {
         divs[divs.length].classList.add('item--active'); 
     }
@@ -239,29 +233,35 @@ previous.addEventListener('click', function(){
     if ((activeIndex - 1) >= 0) {
         divs[activeIndex - 1].classList.add('item--active');
         --activeIndex
-        divs[activeIndex].children[1].play();
-        let song = divs[activeIndex].children[1];
+        song = divs[activeIndex].children[1];
+        song.play()
         songTitle.innerText = song.parentElement.innerText;
-        duration.innerHTML = timeFormat(song.duration)
-        song.addEventListener('timeupdate', function(){
-           seekBar.max = song.duration
-           seekBar.value = song.currentTime
-           current.innerText = timeFormat(song.currentTime);
-        })
+        duration.innerText = timeFormat(song.duration);
+        song.addEventListener('timeupdate', seekBarStatus)
 
     } else {
         divs[0].classList.add('item--active');
     }
 })
 
-
+ //how do i avoid making two seperate event listenres for basically the same function
+const volume = document.getElementById('volume');
+volume.addEventListener('click', () => {
+    song.volume = 0;
+    volume.style.display = 'none';
+    volumeOff.style.display = 'block';
+})
+const volumeOff = document.getElementById('volume-off');
+volumeOff.addEventListener('click',() => {
+    song.volume = 1;
+    volume.style.display = 'block';
+    volumeOff.style.display = 'none';
+})
 
 container.addEventListener('click', function(event) {
-    //can a switch statement be used here instead?
     if (event.target.className === 'items') {
         event.target.classList.add('item--active');
         //functional, just the padding around the elements is small so i have to click a certain area
-        // how to make anything that was clicked the clickable area?
         // add another line that removes any instances off the class when the event target is clicked
     }
 
